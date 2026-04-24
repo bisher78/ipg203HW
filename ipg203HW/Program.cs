@@ -8,7 +8,12 @@ namespace ipg203HW
 {
     internal class Program
     {
-        public abstract class Thing 
+        public interface IMember
+        {
+            void View();
+            string GetRole();
+        }
+        public abstract class Thing : IMember
         {
             private int[] students_id = new int[50];
             private int[] classs = new int[50];
@@ -21,6 +26,46 @@ namespace ipg203HW
             protected string[] Students { get { return Student; } }
             protected int[] Teachers { get { return Teacher; } }
             protected int[] Subjects { get { return Subject; } }
+
+            public abstract void View();
+            public abstract string GetRole();
+
+            protected void SetStudent(int id, string name, int classId, int teacherId, int subjectId)
+            {
+                if (id >= 1 && id <= 50)
+                {
+                    students_id[id - 1] = id;
+                    Student[id - 1] = name;
+                    classs[id - 1] = classId;
+                    Teacher[id - 1] = teacherId;
+                    Subject[id - 1] = subjectId;
+                }
+            }
+            protected string GetStudentName(int id)
+            {
+                if (id >= 1 && id <= 50 && Student[id - 1] != null)
+                    return Student[id - 1];
+                return null;
+            }
+            protected int GetStudentClass(int id)
+            {
+                if (id >= 1 && id <= 50) return classs[id - 1];
+                return 0;
+            }
+            protected int GetStudentTeacher(int id)
+            {
+                if (id >= 1 && id <= 50) return Teacher[id - 1];
+                return 0;
+            }
+            protected int GetStudentSubject(int id)
+            {
+                if (id >= 1 && id <= 50) return Subject[id - 1];
+                return 0;
+            }
+            protected void SetTeacher(int id)
+            {
+                if (id >= 1 && id <= 50) Teacher[id - 1] = id;
+            }
         }
         static void Main(string[] args)
         {
