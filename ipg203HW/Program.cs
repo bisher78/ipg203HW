@@ -66,6 +66,41 @@ namespace ipg203HW
             {
                 if (id >= 1 && id <= 50) Teacher[id - 1] = id;
             }
+            protected void SetSubject(int id)
+            {
+                if (id >= 1 && id <= 50) Subject[id - 1] = id;
+            }
+            protected void SetClass(int id)
+            {
+                if (id >= 1 && id <= 50) classs[id - 1] = id;
+            }
+        }
+        public class Student : Thing
+        {
+            private int studentId;
+
+            public Student(int id, string name, int classId, int teacherId, int subjectId)
+            {
+                studentId = id;
+                SetStudent(id, name, classId, teacherId, subjectId);
+            }
+
+            public override void View()
+            {
+                string name = GetStudentName(studentId);
+                if (name != null)
+                {
+                    Console.WriteLine($"Student: {name} (ID: {studentId})");
+                    Console.WriteLine($"   Class: {GetStudentClass(studentId)}");
+                    Console.WriteLine($"   Subject: {GetStudentSubject(studentId)}");
+                    Console.WriteLine($"   Teacher: {GetStudentTeacher(studentId)}");
+                }
+                else
+                {
+                    Console.WriteLine($"No student found with ID: {studentId}");
+                }
+            }
+            public override string GetRole() => "Student";
         }
         static void Main(string[] args)
         {
