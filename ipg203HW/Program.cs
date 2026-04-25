@@ -102,6 +102,23 @@ namespace ipg203HW
             }
             public override string GetRole() => "Student";
         }
+        public class Teacher : Thing
+        {
+            private int teacherId;
+
+            public Teacher(int id)
+            {
+                teacherId = id;
+                SetTeacher(id);
+            }
+
+            public override void View()
+            {
+                Console.WriteLine($"Teacher ID: {teacherId}");
+            }
+
+            public override string GetRole() => "Teacher";
+        }
         static void Main(string[] args)
         {
             while (true)
