@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ipg203HW
 {
+
     internal class Program
     {
         public interface IMember
@@ -119,6 +120,23 @@ namespace ipg203HW
 
             public override string GetRole() => "Teacher";
         }
+        public class Subject : Thing
+        {
+            private int subjectId;
+
+            public Subject(int id)
+            {
+                subjectId = id;
+                SetSubject(id);
+            }
+
+            public override void View()
+            {
+                Console.WriteLine($"Subject ID: {subjectId}");
+            }
+
+            public override string GetRole() => "Subject";
+        }
         static void Main(string[] args)
         {
             while (true)
@@ -136,6 +154,17 @@ namespace ipg203HW
                 Console.WriteLine("10. exit");
                 Console.Write("your choice : ");
             }
+        }
+    }
+    public static class DataValidator
+    {
+        // خاصية ساكنة لحساب عدد العناصر 
+        public static int TotalItems { get; set; } = 0;
+
+        // (دالة ساكنة للتحقق إن الرقم المدخل صحيح (بين 1 و 50
+        public static bool IsValidId(int id)
+        {
+            return id >= 1 && id <= 50;
         }
     }
 }
