@@ -30,6 +30,7 @@ namespace ipg203HW
 
             public abstract void View();
             public abstract string GetRole();
+            public static int TotalMembersCount { get; set; } = 0;
 
             protected void SetStudent(int id, string name, int classId, int teacherId, int subjectId)
             {
