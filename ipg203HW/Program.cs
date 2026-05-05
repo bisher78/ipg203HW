@@ -21,10 +21,9 @@ namespace ipg203HW
             private string[] Student = new string[50];
             private int[] Teacher = new int[50];
             private int[] Subject = new int[50];
-
-            protected int[] StudentsId { get { return students_id; } }
-            protected int[] Classs { get { return classs; } }
-            protected string[] Students { get { return Student; } }
+            protected int[] StudentsId { get { return students_id; } set { students_id = value; } }
+            protected int[] Classs { get { return classs; } set { classs = value; } }
+            protected string[] Students { get { return Student; } set { Student = value; } }
             protected int[] Teachers { get { return Teacher; } }
             protected int[] Subjects { get { return Subject; } }
 
@@ -106,8 +105,10 @@ namespace ipg203HW
         }
         public class Teacher : Thing
         {
-            private int teacherId;
-
+            private reoadonly int teacherId;          public int TecheraId;
+            {
+                get { return teacherId; }
+            }
             public Teacher(int id)
             {
                 teacherId = id;
@@ -121,9 +122,14 @@ namespace ipg203HW
 
             public override string GetRole() => "Teacher";
         }
-        public class Subject : Thing
-        {
-            private int subjectId;
+    public class Subject : Thing
+    {
+        private readonly int subjectId;
+
+        public int SubjectId
+        { 
+          get { return subjectId; }
+        } 
 
             public Subject(int id)
             {
@@ -159,10 +165,8 @@ namespace ipg203HW
     }
     public static class DataValidator
     {
-        // خاصية ساكنة لحساب عدد العناصر 
+         
         public static int TotalItems { get; set; } = 0;
-
-        // (دالة ساكنة للتحقق إن الرقم المدخل صحيح (بين 1 و 50
         public static bool IsValidId(int id)
         {
             return id >= 1 && id <= 50;
