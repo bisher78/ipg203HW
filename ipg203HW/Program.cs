@@ -9,6 +9,8 @@ namespace ipg203HW
 
     internal class Program
     {
+        public delegate void MenuChoiceHandler(int choice, DateTime time);
+        public static event MenuChoiceHandler OnMenuChoice;
         public interface IMember
         {
             void View();
@@ -105,7 +107,8 @@ namespace ipg203HW
         }
         public class Teacher : Thing
         {
-            private reoadonly int teacherId;          public int TecheraId;
+            private readonly int teacherId;         
+            public int TeacherId
             {
                 get { return teacherId; }
             }
@@ -144,6 +147,26 @@ namespace ipg203HW
 
             public override string GetRole() => "Subject";
         }
+
+
+        public class Class : Thing
+        {
+            private int classId;
+
+            public Class(int id)
+            {
+                classId = id;
+                SetClass(id);
+            }
+
+            public override void View()
+            {
+                Console.WriteLine($"Class ID: {classId}");
+            }
+
+            public override string GetRole() => "Class";
+        }
+
         static void Main(string[] args)
         {
             while (true)
@@ -160,9 +183,28 @@ namespace ipg203HW
                 Console.WriteLine("9. view subjects");
                 Console.WriteLine("10. exit");
                 Console.Write("your choice : ");
+                string input = Console.ReadLine();
+                int choice;
+                if (int.TryParse(input, out choice))
+                {
+                    OnMenuChoice?.Invoke(choice, DateTime.Now);
+                }
+            }
+        }
+        static void LogMenuChoice(int choice, DateTime time)
+        {
+            Console.WriteLine($"[LOG] User selected option {choice} at {time:HH:mm:ss}");
+        }
+
+        static void CheckMenuChoice(int choice, DateTime time)
+        {
+            if (choice == 10)
+            {
+                Console.WriteLine($"[EVENT] Exit selected. Goodbye!");
             }
         }
     }
+       
     public static class DataValidator
     {
          
