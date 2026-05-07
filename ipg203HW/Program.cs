@@ -166,9 +166,50 @@ namespace ipg203HW
 
             public override string GetRole() => "Class";
         }
+        public class SchoolManagement
+        {
+
+            private List<Thing> items = new List<Thing>();
+
+            public void AddItem(Thing item)
+            {
+                items.Add(item);
+                Console.WriteLine($"Added: {item.GetRole()}");
+            }
+
+            public void DisplayAllItems()
+            {
+                Console.WriteLine("\n=== All Items (Polymorphism Demo) ===");
+                foreach (Thing item in items)
+                {
+
+                    item.View();
+                    Console.WriteLine($"   Role: {item.GetRole()}");
+                    Console.WriteLine("---");
+                }
+            }
+
+            public void DisplayByRole(string role)
+            {
+                Console.WriteLine($"\n=== All {role}s ===");
+                foreach (Thing item in items)
+                {
+                    if (item.GetRole() == role)
+                    {
+                        item.View();
+                    }
+                }
+            }
+
+            public int Count => items.Count;
+        }
 
         static void Main(string[] args)
         {
+            SchoolManagement school = new SchoolManagement();
+
+            OnMenuChoice += LogMenuChoice;
+            OnMenuChoice += CheckMenuChoice;
             while (true)
             {
                 Console.WriteLine("choice from: ");
