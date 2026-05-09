@@ -203,8 +203,15 @@ namespace ipg203HW
 
             public int Count => items.Count;
         }
+        public static class DataValidator
+        {
 
-        static void Main(string[] args)
+            public static int TotalItems { get; set; } = 0;
+            public static bool IsValidId(int id)
+            {
+                return id >= 1 && id <= 50;
+            }
+            static void Main(string[] args)
         {
             SchoolManagement school = new SchoolManagement();
 
@@ -231,7 +238,19 @@ namespace ipg203HW
                     OnMenuChoice?.Invoke(choice, DateTime.Now);
                 }
             }
-        }
+            switch (input)
+            {
+                case "1":
+                    ADDSTUDENT(school);
+                    break;
+                case "2":
+                    ADDTEACHER(school);
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
+            }
         static void LogMenuChoice(int choice, DateTime time)
         {
             Console.WriteLine($"[LOG] User selected option {choice} at {time:HH:mm:ss}");
@@ -243,16 +262,43 @@ namespace ipg203HW
             {
                 Console.WriteLine($"[EVENT] Exit selected. Goodbye!");
             }
+            public static void ADDSTUDENT(SchoolManagement school)
+            {
+                Console.Write("Enter student ID (1-50): ");
+                int id = int.Parse(Console.ReadLine());
+                Console.Write("Enter student name: ");
+                string name = Console.ReadLine();
+                Console.Write("Enter class ID (1-50): ");
+                int classId = int.Parse(Console.ReadLine());
+                Console.Write("Enter teacher ID (1-50): ");
+                int teacherId = int.Parse(Console.ReadLine());
+                Console.Write("Enter subject ID (1-50): ");
+                int subjectId = int.Parse(Console.ReadLine());
+                if (DataValidator.IsValidId(id) && DataValidator.IsValidId(classId) && DataValidator.IsValidId(teacherId) && DataValidator.IsValidId(subjectId))
+                {
+                    Student student = new Student(id, name, classId, teacherId, subjectId);
+                    school.AddItem(student);
+                    Console.WriteLine($"Student {name} added successfully!");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. IDs must be between 1 and 50.");
+                }
+            }
+            public static void ADDTEACHER(SchoolManagement school)
+            {
+                Console.Write("Enter teacher ID (1-50): ");
+                int id = int.Parse(Console.ReadLine());
+                if (DataValidator.IsValidId(id))
+                {
+                    Teacher teacher = new Teacher(id);
+                    school.AddItem(teacher);
+                    Console.WriteLine($"Teacher with ID {id} added successfully!");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. IDs must be between 1 and 50.");
+                }
+            }
         }
     }
-       
-    public static class DataValidator
-    {
-         
-        public static int TotalItems { get; set; } = 0;
-        public static bool IsValidId(int id)
-        {
-            return id >= 1 && id <= 50;
-        }
-    }
-}
