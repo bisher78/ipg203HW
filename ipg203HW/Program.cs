@@ -107,7 +107,7 @@ namespace ipg203HW
         }
         public class Teacher : Thing
         {
-            private readonly int teacherId;         
+            private readonly int teacherId;
             public int TeacherId
             {
                 get { return teacherId; }
@@ -125,14 +125,14 @@ namespace ipg203HW
 
             public override string GetRole() => "Teacher";
         }
-    public class Subject : Thing
-    {
-        private readonly int subjectId;
+        public class Subject : Thing
+        {
+            private readonly int subjectId;
 
-        public int SubjectId
-        { 
-          get { return subjectId; }
-        } 
+            public int SubjectId
+            {
+                get { return subjectId; }
+            }
 
             public Subject(int id)
             {
@@ -212,55 +212,46 @@ namespace ipg203HW
                 return id >= 1 && id <= 50;
             }
             static void Main(string[] args)
-        {
-            SchoolManagement school = new SchoolManagement();
-
-            OnMenuChoice += LogMenuChoice;
-            OnMenuChoice += CheckMenuChoice;
-            while (true)
             {
-                Console.WriteLine("choice from: ");
-                Console.WriteLine("1. add student");
-                Console.WriteLine("2. add teacher");
-                Console.WriteLine("3. add class");
-                Console.WriteLine("4. add subject");
-                Console.WriteLine("5. search for student");
-                Console.WriteLine("6. view students");
-                Console.WriteLine("7. view teachers");
-                Console.WriteLine("8. view classes");
-                Console.WriteLine("9. view subjects");
-                Console.WriteLine("10. exit");
-                Console.Write("your choice : ");
-                string input = Console.ReadLine();
-                int choice;
-                if (int.TryParse(input, out choice))
+                SchoolManagement school = new SchoolManagement();
+
+                OnMenuChoice += LogMenuChoice;
+                OnMenuChoice += CheckMenuChoice;
+                while (true)
                 {
-                    OnMenuChoice?.Invoke(choice, DateTime.Now);
+                    Console.WriteLine("choice from: ");
+                    Console.WriteLine("1. add student");
+                    Console.WriteLine("2. add teacher");
+                    Console.WriteLine("3. add class");
+                    Console.WriteLine("4. add subject");
+                    Console.WriteLine("5. search for student");
+                    Console.WriteLine("6. view students");
+                    Console.WriteLine("7. view teachers");
+                    Console.WriteLine("8. view classes");
+                    Console.WriteLine("9. view subjects");
+                    Console.WriteLine("10. exit");
+                    Console.Write("your choice : ");
+                    string input = Console.ReadLine();
+                    int choice;
+                    if (int.TryParse(input, out choice))
+                    {
+                        OnMenuChoice?.Invoke(choice, DateTime.Now);
+                    }
+
+                    switch (input)
+                    {
+                        case "1":
+                            ADDSTUDENT(school);
+                            break;
+                        case "2":
+                            ADDTEACHER(school);
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid choice. Please try again.");
+                            break;
+                    }
                 }
-            }
-            switch (input)
-            {
-                case "1":
-                    ADDSTUDENT(school);
-                    break;
-                case "2":
-                    ADDTEACHER(school);
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid choice. Please try again.");
-                    break;
-            }
-        static void LogMenuChoice(int choice, DateTime time)
-        {
-            Console.WriteLine($"[LOG] User selected option {choice} at {time:HH:mm:ss}");
-        }
-
-        static void CheckMenuChoice(int choice, DateTime time)
-        {
-            if (choice == 10)
-            {
-                Console.WriteLine($"[EVENT] Exit selected. Goodbye!");
             }
             public static void ADDSTUDENT(SchoolManagement school)
             {
@@ -300,5 +291,17 @@ namespace ipg203HW
                     Console.WriteLine("Invalid input. IDs must be between 1 and 50.");
                 }
             }
+            static void LogMenuChoice(int choice, DateTime time)
+            {
+                Console.WriteLine($"[LOG] User selected option {choice} at {time:HH:mm:ss}");
+            }
+            static void CheckMenuChoice(int choice, DateTime time)
+            {
+                if (choice == 10)
+                {
+                    Console.WriteLine($"[EVENT] Exit selected. Goodbye!");
+                }
+            }
         }
-    }
+    } 
+}
