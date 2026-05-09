@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ipg203HW.Program;
 
 namespace ipg203HW
 {
@@ -247,6 +248,14 @@ namespace ipg203HW
                             ADDTEACHER(school);
                             break;
 
+case "3":
+                            ADDCLASS(school);
+                            break;
+                        case "4":
+                            ADDSUBJECT(school);
+                            break;
+
+
                         default:
                             Console.WriteLine("Invalid choice. Please try again.");
                             break;
@@ -291,7 +300,41 @@ namespace ipg203HW
                     Console.WriteLine("Invalid input. IDs must be between 1 and 50.");
                 }
             }
-            static void LogMenuChoice(int choice, DateTime time)
+
+            public static void ADDCLASS(SchoolManagement school)
+            {
+                
+    Console.Write("Enter class ID (1-50): ");
+    int id = int.Parse(Console.ReadLine());
+    if (DataValidator.IsValidId(id))
+    {
+        Class classItem = new Class(id);
+            school.AddItem(classItem);
+        Console.WriteLine($"Class with ID {id} added successfully!");
+    }
+    else
+    {
+        Console.WriteLine("Invalid input. IDs must be between 1 and 50.");
+    }
+}
+
+
+public static void ADDSUBJECT(SchoolManagement school)
+{
+    Console.Write("Enter subject ID (1-50): ");
+    int id = int.Parse(Console.ReadLine());
+    if (DataValidator.IsValidId(id))
+    {
+        Subject subject = new Subject(id);
+        school.AddItem(subject);
+        Console.WriteLine($"Subject with ID {id} added successfully!");
+    }
+    else
+    {
+        Console.WriteLine("Invalid input. IDs must be between 1 and 50.");
+    }
+}
+static void LogMenuChoice(int choice, DateTime time)
             {
                 Console.WriteLine($"[LOG] User selected option {choice} at {time:HH:mm:ss}");
             }
