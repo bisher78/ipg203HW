@@ -271,7 +271,15 @@ case "3":
                     case "6":
                         VIEWSTUDENTS(school);
                         break;
-
+                    case "7":
+                        VIEWTEACHERS(school);
+                        break;
+                    case "8":
+                        VIEWCLASSES(school);
+                        break;
+                    case "9":
+                        VIEWSUBJECTS(school);
+                        break;
 
                     default:
                             Console.WriteLine("Invalid choice. Please try again.");
@@ -317,10 +325,8 @@ case "3":
                     Console.WriteLine("Invalid input. IDs must be between 1 and 50.");
                 }
             }
-
             public static void ADDCLASS(SchoolManagement school)
             {
-                
     Console.Write("Enter class ID (1-50): ");
     int id = int.Parse(Console.ReadLine());
     if (DataValidator.IsValidId(id))
@@ -334,8 +340,6 @@ case "3":
         Console.WriteLine("Invalid input. IDs must be between 1 and 50.");
     }
 }
-
-
 public static void ADDSUBJECT(SchoolManagement school)
 {
     Console.Write("Enter subject ID (1-50): ");
@@ -383,6 +387,18 @@ static void LogMenuChoice(int choice, DateTime time)
         public static void VIEWSTUDENTS(SchoolManagement school)
         {
             school.DisplayByRole("Student");
+        }
+        public static void VIEWTEACHERS(SchoolManagement school)
+        {
+            school.DisplayByRole("Teacher");
+        }
+        public static void VIEWCLASSES(SchoolManagement school)
+        {
+            school.DisplayByRole("Class");
+        }
+        public static void VIEWSUBJECTS(SchoolManagement school)
+        {
+            school.DisplayByRole("Subject");
         }
     }
 } 
