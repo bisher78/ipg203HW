@@ -280,6 +280,9 @@ case "3":
                     case "9":
                         VIEWSUBJECTS(school);
                         break;
+                        case"10":
+                            Environment.Exit(0);
+                        return;
 
                     default:
                             Console.WriteLine("Invalid choice. Please try again.");
