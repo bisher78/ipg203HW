@@ -89,6 +89,11 @@ namespace ipg203HW
                 SetStudent(id, name, classId, teacherId, subjectId);
             }
 
+            public bool HasId(int id)
+            {
+                return studentId == id;
+            }
+
             public override void View()
             {
                 string name = GetStudentName(studentId);
@@ -172,6 +177,11 @@ namespace ipg203HW
 
             private List<Thing> items = new List<Thing>();
 
+            public List<Thing> Items
+            {
+                get { return items; }
+            }
+
             public void AddItem(Thing item)
             {
                 items.Add(item);
@@ -212,6 +222,7 @@ namespace ipg203HW
             {
                 return id >= 1 && id <= 50;
             }
+        }
             static void Main(string[] args)
             {
                 SchoolManagement school = new SchoolManagement();
@@ -254,9 +265,15 @@ case "3":
                         case "4":
                             ADDSUBJECT(school);
                             break;
+                        case "5":
+                            SEARCHSTUDENT(school);
+                            break;
+                    case "6":
+                        VIEWSTUDENTS(school);
+                        break;
 
 
-                        default:
+                    default:
                             Console.WriteLine("Invalid choice. Please try again.");
                             break;
                     }
@@ -345,6 +362,27 @@ static void LogMenuChoice(int choice, DateTime time)
                     Console.WriteLine($"[EVENT] Exit selected. Goodbye!");
                 }
             }
+        public static void SEARCHSTUDENT(SchoolManagement school)
+        {
+            Console.Write("Enter student ID to search: ");
+            int id = int.Parse(Console.ReadLine());
+
+            foreach (Thing item in school.Items)
+            {
+                if (item is Student student)
+                {
+                    if (student.HasId(id))
+                    {
+                        student.View();
+                        return;
+                    }
+                }
+            }
+            Console.WriteLine($"No student found with ID: {id}");
         }
-    } 
-}
+        public static void VIEWSTUDENTS(SchoolManagement school)
+        {
+            school.DisplayByRole("Student");
+        }
+    }
+} 
